@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block contenido %}
+
+<h1>Estudiantes</h1>
+
+<a
+    href="{{ url_for('nuevo_estudiante') }}"
+    class="btn btn-success mb-3">
+    Nuevo
+</a>
+
+<table class="table table-striped">
+
+    <thead class="table-dark">
+
+        <tr>
+            <th>Id</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Correo</th>
+            <th>Acciones</th>
+        </tr>
+
+    </thead>
+
+    <tbody>
+
+        {% for estudiante in estudiantes %}
+
+        <tr>
+
+            <td>{{ estudiante.id }}</td>
+
+            <td>{{ estudiante.nombre }}</td>
+
+            <td>{{ estudiante.apellido }}</td>
+
+            <td>{{ estudiante.correo }}</td>
+
+            <td>
+
+                <a
+                    href="{{ url_for('eliminar_estudiante', id=estudiante.id) }}"
+                    class="btn btn-danger"
+                    onclick="return confirm('¿Está seguro de eliminar este estudiante?');">
+                    Eliminar
+                </a>
+
+            </td>
+
+        </tr>
+
+        {% endfor %}
+
+    </tbody>
+
+</table>
+
+{% endblock %}

@@ -27,15 +27,26 @@
         </a>
 
         <div class="navbar-nav">
+<a class="text-white me-3"
+   href="{{ url_for('listar_libros') }}">
+    Libros
+</a>
 
-            <a class="nav-link"
-               href="{{ url_for('listar_libros') }}">
-                Libros
-            </a>
+<a class="text-white me-3"
+   href="{{ url_for('listar_estudiantes') }}">
+    Estudiantes
+</a>
 
-            <a class="nav-link"
-               href="{{ url_for('listar_prestamos') }}">
-                Préstamos
+<a class="text-white me-3"
+   href="{{ url_for('listar_cursos') }}">
+    Cursos
+</a>
+
+<a class="text-white"
+   href="{{ url_for('listar_prestamos') }}">
+    Préstamos
+</a>
+
             </a>
 
         </div>

@@ -35,6 +35,24 @@ def crear_bd():
         )
     """)
 
+    conn.execute("""
+        CREATE TABLE IF NOT EXISTS estudiantes (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            nombre TEXT NOT NULL,
+            apellido TEXT NOT NULL,
+            correo TEXT NOT NULL
+        )
+    """)
+
+    conn.execute("""
+        CREATE TABLE IF NOT EXISTS cursos (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            nombre TEXT NOT NULL,
+            descripcion TEXT NOT NULL,
+            duracion INTEGER NOT NULL
+        )
+    """)
+
     conn.commit()
     conn.close()
 
@@ -169,6 +187,132 @@ def eliminar_prestamo(id):
 
     return redirect(url_for("listar_prestamos"))
 
+
+
+@app.route("/estudiantes")
+def listar_estudiantes():
+
+    conn = get_db_connection()
+
+    estudiantes = conn.execute("""
+        SELECT * FROM estudiantes
+        ORDER BY id DESC
+    """).fetchall()
+
+    conn.close()
+
+    return render_template(
+        "estudiantes.html",
+        estudiantes=estudiantes
+    )
+
+
+@app.route("/estudiante/nuevo", methods=("GET", "POST"))
+def nuevo_estudiante():
+
+    if request.method == "POST":
+
+        nombre = request.form["nombre"]
+        apellido = request.form["apellido"]
+        correo = request.form["correo"]
+
+        conn = get_db_connection()
+
+        conn.execute("""
+            INSERT INTO estudiantes
+            (nombre, apellido, correo)
+            VALUES (?, ?, ?)
+        """, (
+            nombre,
+            apellido,
+            correo
+        ))
+
+        conn.commit()
+        conn.close()
+
+        return redirect(url_for("listar_estudiantes"))
+
+    return render_template("form_estudiante.html")
+
+
+@app.route("/estudiante/eliminar/<int:id>")
+def eliminar_estudiante(id):
+
+    conn = get_db_connection()
+
+    conn.execute(
+        "DELETE FROM estudiantes WHERE id = ?",
+        (id,)
+    )
+
+    conn.commit()
+    conn.close()
+
+    return redirect(url_for("listar_estudiantes"))
+
+
+@app.route("/cursos")
+def listar_cursos():
+
+    conn = get_db_connection()
+
+    cursos = conn.execute("""
+        SELECT * FROM cursos
+        ORDER BY id DESC
+    """).fetchall()
+
+    conn.close()
+
+    return render_template(
+        "cursos.html",
+        cursos=cursos
+    )
+
+
+@app.route("/curso/nuevo", methods=("GET", "POST"))
+def nuevo_curso():
+
+    if request.method == "POST":
+
+        nombre = request.form["nombre"]
+        descripcion = request.form["descripcion"]
+        duracion = request.form["duracion"]
+
+        conn = get_db_connection()
+
+        conn.execute("""
+            INSERT INTO cursos
+            (nombre, descripcion, duracion)
+            VALUES (?, ?, ?)
+        """, (
+            nombre,
+            descripcion,
+            duracion
+        ))
+
+        conn.commit()
+        conn.close()
+
+        return redirect(url_for("listar_cursos"))
+
+    return render_template("form_curso.html")
+
+
+@app.route("/curso/eliminar/<int:id>")
+def eliminar_curso(id):
+
+    conn = get_db_connection()
+
+    conn.execute(
+        "DELETE FROM cursos WHERE id = ?",
+        (id,)
+    )
+
+    conn.commit()
+    conn.close()
+
+    return redirect(url_for("listar_cursos"))
 
 if __name__ == "__main__":
     crear_bd()

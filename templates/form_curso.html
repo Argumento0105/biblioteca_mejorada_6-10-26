@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block contenido %}
+
+<h1>Nuevo curso</h1>
+
+<form method="POST">
+
+    <div class="mb-3">
+
+        <label class="form-label">
+            Nombre del curso
+        </label>
+
+        <input
+            type="text"
+            name="nombre"
+            class="form-control"
+            required>
+
+    </div>
+
+
+    <div class="mb-3">
+
+        <label class="form-label">
+            Descripción
+        </label>
+
+        <textarea
+            name="descripcion"
+            class="form-control"
+            rows="4"
+            required></textarea>
+
+    </div>
+
+
+    <div class="mb-3">
+
+        <label class="form-label">
+            Duración en horas
+        </label>
+
+        <input
+            type="number"
+            name="duracion"
+            class="form-control"
+            min="1"
+            required>
+
+    </div>
+
+
+    <button class="btn btn-primary">
+        Guardar
+    </button>
+
+    <a
+        href="{{ url_for('listar_cursos') }}"
+        class="btn btn-secondary">
+        Cancelar
+    </a>
+
+</form>
+
+{% endblock %}

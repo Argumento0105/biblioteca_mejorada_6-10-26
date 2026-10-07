@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block contenido %}
+
+<h1>Cursos</h1>
+
+<a
+    href="{{ url_for('nuevo_curso') }}"
+    class="btn btn-success mb-3">
+    Nuevo
+</a>
+
+<table class="table table-striped">
+
+    <thead class="table-dark">
+
+        <tr>
+            <th>Id</th>
+            <th>Nombre</th>
+            <th>Descripción</th>
+            <th>Duración</th>
+            <th>Acciones</th>
+        </tr>
+
+    </thead>
+
+    <tbody>
+
+        {% for curso in cursos %}
+
+        <tr>
+
+            <td>{{ curso.id }}</td>
+
+            <td>{{ curso.nombre }}</td>
+
+            <td>{{ curso.descripcion }}</td>
+
+            <td>{{ curso.duracion }} horas</td>
+
+            <td>
+
+                <a
+                    href="{{ url_for('eliminar_curso', id=curso.id) }}"
+                    class="btn btn-danger"
+                    onclick="return confirm('¿Está seguro de eliminar este curso?');">
+                    Eliminar
+                </a>
+
+            </td>
+
+        </tr>
+
+        {% endfor %}
+
+    </tbody>
+
+</table>
+
+{% endblock %}
