@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block contenido %}
+
+<h1>Libros</h1>
+
+<a href="{{ url_for('nuevo_libro') }}"
+   class="btn btn-success mb-3">
+    Nuevo
+</a>
+
+<table class="table table-striped">
+
+    <thead class="table-dark">
+
+        <tr>
+            <th>Id</th>
+            <th>Título</th>
+            <th>Autor</th>
+            <th>Categoría</th>
+            <th>Año</th>
+            <th>Acciones</th>
+        </tr>
+
+    </thead>
+
+    <tbody>
+
+        {% for libro in libros %}
+
+        <tr>
+
+            <td>{{ libro.id }}</td>
+            <td>{{ libro.titulo }}</td>
+            <td>{{ libro.autor }}</td>
+            <td>{{ libro.categoria }}</td>
+            <td>{{ libro.anio }}</td>
+
+            <td>
+
+                <a
+                    href="{{ url_for('eliminar_libro', id=libro.id) }}"
+                    class="btn btn-danger">
+                    Eliminar
+                </a>
+
+            </td>
+
+        </tr>
+
+        {% endfor %}
+
+    </tbody>
+
+</table>
+
+{% endblock %}

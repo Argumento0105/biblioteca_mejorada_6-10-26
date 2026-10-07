@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+
+{% block contenido %}
+
+<h1>Nuevo préstamo</h1>
+
+<form method="POST">
+
+    <div class="mb-3">
+
+        <label class="form-label">
+            Fecha
+        </label>
+
+        <input
+            type="date"
+            name="fecha"
+            class="form-control"
+            required>
+
+    </div>
+
+
+    <div class="mb-3">
+
+        <label class="form-label">
+            Estudiante
+        </label>
+
+        <input
+            type="text"
+            name="estudiante"
+            class="form-control"
+            required>
+
+    </div>
+
+
+    <div class="mb-3">
+
+        <label class="form-label">
+            Libro
+        </label>
+
+        <select
+            name="libro_id"
+            class="form-select"
+            required>
+
+            <option value="">
+                Seleccione un libro
+            </option>
+
+            {% for libro in libros %}
+
+            <option value="{{ libro.id }}">
+                {{ libro.titulo }}
+            </option>
+
+            {% endfor %}
+
+        </select>
+
+    </div>
+
+
+    <button class="btn btn-primary">
+        Guardar
+    </button>
+
+    <a
+        href="{{ url_for('listar_prestamos') }}"
+        class="btn btn-secondary">
+        Cancelar
+    </a>
+
+</form>
+
+{% endblock %}
